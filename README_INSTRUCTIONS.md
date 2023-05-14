@@ -25,3 +25,5 @@ A correção foi remover no package.json:
 ```
 type: "module"
 ```
+
+# Navegação e Rotas

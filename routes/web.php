@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +29,10 @@ Route::middleware(['splade'])->group(function () {
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
 
+    Route::get('/request', function () {
+        return view('request', []);
+    });
+
     Route::get('/', function () {
         return view('welcome', [
             'canLogin' => Route::has('login'),
@@ -35,6 +41,10 @@ Route::middleware(['splade'])->group(function () {
             'phpVersion' => PHP_VERSION,
         ]);
     });
+
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('posts', PostController::class);
 
     Route::middleware([
         'auth:sanctum',
