@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -19,5 +20,17 @@ class CategoryController extends Controller
                 ->column('action', label: 'Ações', canBeHidden: false)
                 ->paginate(5),
         ]);
+    }
+
+    public function create()
+    {
+        return view('categories.create');
+    }
+
+    public function store(CategoryStoreRequest $request)
+    {
+        Category::create($request->validated());
+
+        return redirect()->route('categories.index');
     }
 }

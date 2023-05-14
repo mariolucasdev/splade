@@ -41,4 +41,9 @@ class PostController extends Controller
                 ->paginate(5),
         ]);
     }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
 }
