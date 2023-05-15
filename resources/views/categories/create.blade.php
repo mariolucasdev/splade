@@ -7,8 +7,8 @@
                 {{ __('Cadastrar Categoria') }}
             </h2>
 
-            <Link href="{{ route('categories.create') }}" class="px-4 py-2 bg-indigo-400 hover:bg-indigo-600 text-white rounded-md">
-            Nova Categoria
+            <Link href="{{ route('categories.index') }}" class="px-4 py-2 bg-indigo-400 hover:bg-indigo-600 text-white rounded-md">
+            Voltar
             </Link>
         </div>
     </x-slot>
