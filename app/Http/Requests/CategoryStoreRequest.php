@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CategoryStoreRequest extends FormRequest
 {
@@ -22,8 +23,8 @@ class CategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|unique:categories,name',
-            'slug' => 'required|max:255|unique:categories,slug'
+            'name' => ['required', 'max:255', Rule::unique('categories', 'name')->ignore('category')],
+            'slug' => ['required', 'max:255', Rule::unique('categories', 'slug')->ignore('category')],
         ];
     }
 }
