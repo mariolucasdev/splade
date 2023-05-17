@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Tables\Posts;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -23,31 +24,8 @@ class PostController extends Controller
      */
     public function index(): View
     {
-        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
-            $query->where(function ($query) use ($value) {
-                Collection::wrap($value)->each(function ($value) use ($query) {
-                    $query
-                        ->orWhere('title', 'LIKE', "%{$value}%")
-                        ->orWhere('slug', 'LIKE', "%{$value}%");
-                });
-            });
-        });
-
-        $posts = QueryBuilder::for(Post::class)
-            ->defaultSort('title')
-            ->allowedSorts(['title', 'slug'])
-            ->allowedFilters(['title', 'slug', 'category_id', $globalSearch]);
-
-        $categories = Category::pluck('name', 'id')->toArray();
-
         return view('posts.index', [
-            'posts' => SpladeTable::for($posts)
-                ->column('title', canBeHidden: false, sortable: true)
-                ->withGlobalSearch(label: 'Buscar', columns: ['title'])
-                ->column('slug', 'Slug', sortable: true)
-                ->column('action', label: 'Ações', canBeHidden: false)
-                ->selectFilter('category_id', $categories)
-                ->paginate(5),
+            'posts' => Posts::class
         ]);
     }
 

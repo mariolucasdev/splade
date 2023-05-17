@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
+use App\Tables\Categories;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -22,12 +23,7 @@ class CategoryController extends Controller
     public function index(): View
     {
         return view('categories.index', [
-            'categories' => SpladeTable::for(Category::class)
-                ->column('name', 'Nome', true, false, true, true)
-                ->withGlobalSearch(label: 'Buscar', columns: ['name'])
-                ->column('slug', 'Slug', true, false, true)
-                ->column('action', label: 'Ações', canBeHidden: false)
-                ->paginate(5),
+            'categories' => Categories::class
         ]);
     }
 
