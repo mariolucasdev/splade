@@ -77,12 +77,6 @@ class Posts extends AbstractTable
             ->selectFilter('category_id', $categories)
             ->export()
             ->bulkAction(
-                label: 'Touch timestamp',
-                each: fn (Post $post) => $post->touch(),
-                before: fn () => info('Touching the selected projects'),
-                after: fn () => Toast::info('Timestamps updated!')
-            )
-            ->bulkAction(
                 confirm: 'Deseja realmente excluir as categorias selecionadas?',
                 label: 'Excluir Selecionadas',
                 each: fn (Post $post) => $post->delete(),
@@ -90,11 +84,5 @@ class Posts extends AbstractTable
                 after: fn () => Toast::info('Posts excluidas com sucesso!')
             )
             ->paginate(5);
-
-        // ->searchInput()
-        // ->selectFilter()
-        // ->withGlobalSearch()
-
-        // ->bulkAction()
     }
 }
