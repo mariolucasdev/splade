@@ -84,4 +84,19 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
+
+    /**
+     * Delete Category
+     *
+     * @param Category $category
+     * @return RedirectResponse
+     */
+    public function destroy(Category $category): RedirectResponse
+    {
+        $category->delete();
+
+        Toast::success('Categoria excluída com sucesso!')->autoDismiss(3);
+
+        return redirect()->back();
+    }
 }

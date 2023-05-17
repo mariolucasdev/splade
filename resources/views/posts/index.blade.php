@@ -8,7 +8,7 @@
             </h2>
 
             <Link href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-400 hover:bg-indigo-600 text-white rounded-md">
-                Novo Post
+            Novo Post
             </Link>
         </div>
     </x-slot>
@@ -17,8 +17,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-splade-table :for="$posts">
                 @cell('action', $post)
-                <Link href="{{ route('posts.edit', $post->id) }}"
-                    class="text-green-600 hover:text-green-400 font-semibold"> Editar </Link>
+                <Link href="{{ route('posts.edit', $post->id) }}" class="text-green-600 hover:text-green-400 font-semibold"> Editar </Link>
+                <Link class="text-red-600 hover:text-red-400 font-semibold ml-1" confirm="Excluir Post..." confirm-text="Tem certeza que deseja excluir esse post?" confirm-button="Sim!" cancel-button="Cancelar!" href="{{ route('posts.destroy', $post->id) }}" method="DELETE" preserve-scroll>
+                Excluir
+                </Link>
                 @endcell
             </x-splade-table>
         </div>
